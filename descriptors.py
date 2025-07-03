@@ -38,7 +38,10 @@ def euclidean(d1: np.ndarray, d2: np.ndarray) -> float:
 # ------------------------------------------------------------------
 
 def rgb_hist(img: np.ndarray, bins: int = 32) -> np.ndarray:
-    hist = cv2.calcHist([img], [0, 1, 2], None, [bins] * 3, [0, 256, 0, 256, 0, 256])
+    """Return a normalised RGB histogram for an image."""
+    rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    hist = cv2.calcHist([rgb], [0, 1, 2], None,
+                        [bins] * 3, [0, 256, 0, 256, 0, 256])
     return cv2.normalize(hist, hist, norm_type=cv2.NORM_L1).flatten()
 
 
